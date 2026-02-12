@@ -1,11 +1,14 @@
 import os
 import asyncio
+from dotenv import load_dotenv
 from google.genai import types
 from google.adk.agents import Agent
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.adk.tools.mcp_tool import McpToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
+
+load_dotenv()
 
 STITCH_API_KEY = os.getenv("STITCH_API_KEY")
 APP_NAME = "stitch_app"
