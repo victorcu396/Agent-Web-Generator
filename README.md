@@ -19,3 +19,168 @@ pip install pyproyect-toml
 ## License
 
 `pyproyect-toml` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+
+
+# 🧩 Web Builder con ADK + MCP + Stitch
+
+Proyecto para generación automática de páginas web usando **Gemini ADK**, **Stitch MCP Server** y un backend en **FastAPI** que orquesta todo el flujo.
+
+Permite:
+
+- Analizar prompts de usuario
+- Generar planes de construcción web
+- Crear HTML automáticamente
+- Usar **Google ADK + MCP tools** o Stitch directo
+
+---
+
+# 🚀 Arquitectura
+
+## Flujo general
+
+Cliente HTTP
+↓
+POST /generate (PromptDTO)
+↓
+WebBuilderAgent.analyze_prompt() → WebPlanDTO
+↓
+PageGenerator.generate(plan)
+├─ USE_ADK = true
+│ ↓
+│ stitch_adk_client.generate_with_adk()
+│ ↓
+│ Google ADK Agent + Stitch MCP
+│ ↓
+│ HTML generado
+│
+└─ USE_ADK = false
+↓
+stitch_client.generate_with_stitch()
+↓
+HTTP POST → localhost:3001/generate
+↓
+HTML generado
+
+↓
+GeneratedPageDTO (html + framework)
+↓
+Respuesta JSON al cliente
+
+
+---
+
+# 🧠 Integración MCP + ADK
+
+La comunicación sigue el patrón:
+
+Gemini ADK → MCP Client → Stitch MCP Server
+
+
+## Pasos del flujo MCP
+
+1. Se levanta el **Stitch MCP Server**
+2. El agente **Gemini ADK** se conecta vía **HTTP MCP**
+3. Gemini puede:
+   - Invocar tools
+   - Ejecutar workflows de Stitch
+   - Generar código web automáticamente
+
+---
+
+# 📡 Endpoints FastAPI
+
+Base URL:
+
+## 📚 Documentación API
+
+GET /docs
+
+
+http://localhost:8000/docs
+
+Swagger UI del backend.
+
+---
+
+## 💬 Chatbot
+
+POST /chat
+
+
+Permite enviar prompts directamente al sistema de generación.
+
+---
+
+## 📁 Subida de archivos
+
+
+
+POST /uploads
+
+Permite subir assets que pueden usarse durante la generación web.
+
+---
+
+# ⚙️ Modos de generación
+
+## 🔹 Modo ADK (Recomendado)
+
+Usa:
+
+- Google Gemini ADK
+- Stitch MCP tools
+- Workflows inteligentes
+
+
+http://localhost:8000/uploads/[tu_imagen_o_documento]
+
+USE_ADK=true
+
+
+### Ventajas
+
+- Planificación automática
+- Uso de tools MCP
+- Generación más contextual
+
+---
+
+## 🔹 Modo Stitch Directo
+
+Llama al servidor Stitch sin ADK.
+
+POST http://localhost:3001/generate
+
+
+Más rápido pero menos inteligente.
+
+---
+
+# 🏗️ Componentes principales
+
+## WebBuilderAgent
+
+Responsable de:
+
+- Analizar prompt
+- Generar plan estructurado de página
+
+**Output:**
+
+WebPlanDTO
+
+
+---
+
+## PageGenerator
+
+Se encarga de:
+
+- Elegir modo de generación
+- Ejecutar ADK o Stitch
+- Devolver HTML final
+
+---
+
+
+
