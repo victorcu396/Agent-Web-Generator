@@ -30,7 +30,7 @@ Permite:
 - Analizar prompts de usuario
 - Generar planes de construcción web
 - Crear HTML automáticamente
-- Usar **Google ADK + MCP tools** o Stitch directo
+- Usar **Google ADK + Stitch MCP tools**
 
 ---
 
@@ -45,22 +45,10 @@ POST /generate (PromptDTO)
 WebBuilderAgent.analyze_prompt() → WebPlanDTO
 ↓
 PageGenerator.generate(plan)
-├─ USE_ADK = true
-│ ↓
-│ stitch_adk_client.generate_with_adk()
-│ ↓
-│ Google ADK Agent + Stitch MCP
-│ ↓
-│ HTML generado
-│
-└─ USE_ADK = false
 ↓
-stitch_client.generate_with_stitch()
-↓
-HTTP POST → localhost:3001/generate
+Google ADK Agent + Stitch MCP
 ↓
 HTML generado
-
 ↓
 GeneratedPageDTO (html + framework)
 ↓
@@ -119,42 +107,10 @@ POST /uploads
 
 Permite subir assets que pueden usarse durante la generación web.
 
----
-
-# ⚙️ Modos de generación
-
-## 🔹 Modo ADK (Recomendado)
-
-Usa:
-
-- Google Gemini ADK
-- Stitch MCP tools
-- Workflows inteligentes
-
-
 http://localhost:8000/uploads/[tu_imagen_o_documento]
 
-USE_ADK=true
-
-
-### Ventajas
-
-- Planificación automática
-- Uso de tools MCP
-- Generación más contextual
-
 ---
 
-## 🔹 Modo Stitch Directo
-
-Llama al servidor Stitch sin ADK.
-
-POST http://localhost:3001/generate
-
-
-Más rápido pero menos inteligente.
-
----
 
 # 🏗️ Componentes principales
 
@@ -168,7 +124,6 @@ Responsable de:
 **Output:**
 
 WebPlanDTO
-
 
 ---
 
