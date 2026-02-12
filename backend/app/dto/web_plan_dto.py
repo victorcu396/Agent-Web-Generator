@@ -6,3 +6,4 @@ class WebPlanDTO(BaseModel):
     sections: List[str]
     style: str
     images: Optional[List[str]] = None
+    docs: Optional[List[str]] = None

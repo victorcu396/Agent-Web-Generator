@@ -34,8 +34,12 @@ async def generate_with_adk(plan) -> str:
 
     runner = Runner(app_name=APP_NAME, agent=root_agent, session_service=session_service)
 
-    # Construir prompt desde `plan`
-    user_text = f"Genera una página {plan.site_type} con secciones {plan.sections} y estilo {plan.style}"
+    # Construir prompt desde `plan`, incluyendo imágenes y docs si existen
+    user_text = f"Genera una página {plan.site_type} con secciones {plan.sections} y estilo {plan.style}."
+    if getattr(plan, 'images', None):
+        user_text += f" Usa estas imágenes: {plan.images}."
+    if getattr(plan, 'docs', None):
+        user_text += f" Refiérete a estos documentos: {plan.docs}."
     content = types.Content(role="user", parts=[types.Part(text=user_text)])
 
     events = runner.run_async(session_id=session.id, user_id=session.user_id, new_message=content)
