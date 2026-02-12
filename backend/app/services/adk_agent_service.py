@@ -7,14 +7,21 @@ from google.adk.sessions import InMemorySessionService
 from google.adk.tools.mcp_tool import McpToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
 
+# Cargar variables de entorno al importar
 load_dotenv()
 
 STITCH_API_KEY = os.getenv("STITCH_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 APP_NAME = "stitch_chat_app"
 USER_ID = "stitch_chat_user"
 
 
 class ADKAgentService:
+    """
+    Servicio de chat interactivo con el agente ADK/Stitch.
+    Mantiene sesiones para conversaciones multi-turno.
+    Basado en agent_principal.py pero sin modo interactivo (para web).
+    """
     def __init__(self):
         self.session_service = None
         self.session = None
