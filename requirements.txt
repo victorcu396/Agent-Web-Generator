@@ -4,3 +4,6 @@ httpx
 sqlalchemy
 psycopg2-binary
 pydantic
+google-adk
+google-genai
+python-dotenv
