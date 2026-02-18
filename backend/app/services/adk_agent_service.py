@@ -15,7 +15,6 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 APP_NAME = "stitch_chat_app"
 USER_ID = "stitch_chat_user"
 
-
 class ADKAgentService:
     """
     Servicio de chat interactivo con el agente ADK/Stitch.

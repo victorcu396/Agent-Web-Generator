@@ -4,6 +4,7 @@ from google.genai import types
 from google.adk.agents import Agent
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
+import asyncio
 from google.adk.tools.mcp_tool import McpToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
 
@@ -13,13 +14,16 @@ STITCH_API_KEY = os.getenv("STITCH_API_KEY")
 APP_NAME = "stitch_app"
 USER_ID = "stitch_user"
 
-
 _toolset = None
 _runner = None
 _session = None
 _session_service = None
+_lock = asyncio.Lock()
 
 async def _initialize():
+    async with _lock:
+        if _runner is not None:
+            return
     global _toolset, _runner, _session, _session_service
 
     if _runner is not None:

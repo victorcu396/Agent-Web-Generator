@@ -1,16 +1,13 @@
 from fastapi import APIRouter, WebSocket
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
-import asyncio
 from app.services.adk_agent_service import ADKAgentService
 
 router = APIRouter()
 adk_service = ADKAgentService()
 
-
 class ChatMessage(BaseModel):
     message: str
-
 
 @router.get("/chat", response_class=HTMLResponse)
 async def chat_page():
@@ -334,7 +331,6 @@ async def chat_page():
     </body>
     </html>
     """
-
 
 @router.post("/api/chat/message")
 async def chat_message(request: ChatMessage):
