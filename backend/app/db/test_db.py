@@ -28,7 +28,7 @@ def test_query_execution():
     print("\n2️  Test de ejecución de queries...")
     try:
         with engine.connect() as conn:
-            result = conn.execute(text("SELECT 1 as test"))
+            result = conn.execute(text("SELECT 1 AS test"))
             row = result.fetchone()
             if row[0] == 1:
                 print("    Query ejecutada correctamente")
@@ -41,7 +41,7 @@ def test_query_execution():
         return False
 
 
-def test_database_info():
+def test_database_info() -> bool:
     """Test de información de la DB"""
     print("\n3️  Información de la base de datos...")
     try:

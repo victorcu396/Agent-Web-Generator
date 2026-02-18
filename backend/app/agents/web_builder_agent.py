@@ -3,42 +3,58 @@ from app.dto.web_plan_dto import WebPlanDTO
 from app.dto.result_dto import GeneratedPageDTO
 from app.services.page_generator import PageGenerator
 
+# Separa logica de las posibles entradas, para que sea más facil reescalado
+SITE_TYPE_KEYWORDS: dict[str, tuple[str, list[str], str]] = {
+    "ecommerce": (
+        ["tienda", "shop", "store", "ecommerce", "compra", "producto"],
+        ["hero", "products", "pricing", "contact"],
+        "modern ecommerce",
+    ),
+    "portfolio": (
+        ["portfolio", "portafolio", "proyectos", "trabajos", "cv"],
+        ["hero", "projects", "about", "contact"],
+        "minimal modern",
+    )
+}
+
+DEFAULT_PLAN = ("landing", ["hero", "features", "pricing", "contact"], "modern saas")
+
 
 class WebBuilderAgent:
 
     def __init__(self):
         self.generator = PageGenerator()
 
-    def analyze_prompt(self, prompt: str, images: list | None = None, docs: list | None = None) -> WebPlanDTO:
-
+    def analyze_prompt(
+        self,
+        prompt: str,
+        images: list[str] | None = None,
+        docs: list[str] | None = None,
+    ) -> WebPlanDTO:
+        """
+        Determina el tipo de sitio a partir de keywords en el prompt.
+        Posible mejora de datos a añadir para mejorar el prompt
+        """
         prompt_lower = prompt.lower()
 
-        if "tienda" in prompt_lower or "shop" in prompt_lower:
-            return WebPlanDTO(
-                site_type="ecommerce",
-                sections=["hero", "products", "pricing", "contact"],
-                style="modern ecommerce",
-                images=images,
-                docs=docs,
-            )
+        for site_type, (keywords, sections, style) in SITE_TYPE_KEYWORDS.items():
+            if any(kw in prompt_lower for kw in keywords):
+                return WebPlanDTO(
+                    site_type=site_type,
+                    sections=sections,
+                    style=style,
+                    images=images,
+                    docs=docs,
+                )
 
-        if "portfolio" in prompt_lower:
-            return WebPlanDTO(
-                site_type="portfolio",
-                sections=["hero", "projects", "about", "contact"],
-                style="minimal modern",
-                images=images,
-                docs=docs,
-            )
-
+        site_type, sections, style = DEFAULT_PLAN
         return WebPlanDTO(
-            site_type="landing",
-            sections=["hero", "features", "pricing", "contact"],
-            style="modern saas",
+            site_type=site_type,
+            sections=sections,
+            style=style,
             images=images,
             docs=docs,
         )
-        
 
     async def run(self, prompt_dto: PromptDTO) -> GeneratedPageDTO:
         """
@@ -46,13 +62,10 @@ class WebBuilderAgent:
         """
         plan = self.analyze_prompt(
             prompt_dto.prompt,
-            images=getattr(prompt_dto, 'images', None),
-            docs=getattr(prompt_dto, 'docs', None)
+            images=prompt_dto.images or None,
+            docs=prompt_dto.docs or None,
         )
 
         html = await self.generator.generate(plan)
 
-        return GeneratedPageDTO(
-            html=html,
-            framework="html"
-        )
+        return GeneratedPageDTO(html=html, framework="html")
