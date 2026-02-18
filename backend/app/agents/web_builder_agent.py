@@ -41,8 +41,14 @@ class WebBuilderAgent:
         
 
     async def run(self, prompt_dto: PromptDTO) -> GeneratedPageDTO:
-
-        plan = self.analyze_prompt(prompt_dto.prompt, images=getattr(prompt_dto, 'images', None), docs=getattr(prompt_dto, 'docs', None))
+        """
+        Genera la página HTML basado en el prompt usando PageGenerator.
+        """
+        plan = self.analyze_prompt(
+            prompt_dto.prompt,
+            images=getattr(prompt_dto, 'images', None),
+            docs=getattr(prompt_dto, 'docs', None)
+        )
 
         html = await self.generator.generate(plan)
 

@@ -75,7 +75,7 @@ def get_db_info():
         print(f"Error obteniendo información: {str(e)}")    
 
 if __name__ == "__main__":
-    print("🔍 Verificando conexión a PostgreSQL...\n")
+    print("Verificando conexión a PostgreSQL...\n")
     if test_connection():
         get_db_info()
     else:
