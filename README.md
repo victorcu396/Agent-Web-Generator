@@ -21,6 +21,25 @@ pip install pyproyect-toml
 `pyproyect-toml` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
 
 
+┌─────────────────────────────────────────────────┐
+│            AGENT-WEB-GENEARATOR                 │
+│                                                 │
+│  FastAPI (main.py)                              │
+│     ↓                                           │
+│  Rutas API (generate.py, chat.py)               │
+│     ↓                                           │
+│  Servicios (adk_agent_service.py)               │
+│     ↓                                           │
+│  Base de Datos (database.py) ← AQUÍ ESTAMOS     │
+│     ↓                                           │
+└─────┼───────────────────────────────────────────┘
+      ↓
+┌─────┴──────────────────┐
+│   PostgreSQL Server    │
+│   (puerto 5432)        │
+└────────────────────────┘
+
+
 # 🧩 Web Builder con ADK + MCP + Stitch
 
 Proyecto para generación automática de páginas web usando **Gemini ADK**, **Stitch MCP Server** y un backend en **FastAPI** que orquesta todo el flujo.
@@ -53,6 +72,63 @@ HTML generado
 GeneratedPageDTO (html + framework)
 ↓
 Respuesta JSON al cliente
+
+cliente hace un POST /generate
+Manda un JSON con el prompt:
+json{ "prompt": "quiero una tienda online moderna" }
+```
+
+---
+
+**2. `generate.py` recibe el request**
+
+FastAPI deserializa el JSON a un `PromptDTO` y llama a `agent.run(data)`.
+
+---
+
+**3. `WebBuilderAgent.analyze_prompt()`**
+
+Analiza el texto del prompt con simples condiciones `if`. Si contiene "tienda" devuelve un `WebPlanDTO` de tipo ecommerce, si contiene "portfolio" devuelve portfolio, si no, devuelve landing por defecto. Este plan tiene: `site_type`, `sections`, `style`.
+
+---
+
+**4. `PageGenerator.generate(plan)`**
+
+Es un wrapper delgado, simplemente llama a `generate_with_adk(plan)`.
+
+---
+
+**5. `generate_with_adk()` — aquí ocurre lo importante**
+
+- Si es la primera llamada, `_initialize()` crea la conexión al servidor MCP de Stitch en `https://stitch.googleapis.com/mcp`, construye el agente Gemini con ese toolset, y crea el Runner.
+- Construye un prompt de texto con los datos del plan: tipo de página, secciones, estilo.
+- Lo manda al Runner de ADK como un mensaje de usuario.
+
+---
+
+**6. ADK + Gemini + Stitch MCP**
+
+Aquí es donde Gemini decide si usar las herramientas de Stitch o no. El flujo interno es:
+```
+Gemini recibe el prompt
+↓
+Decide llamar a una tool de Stitch (ej: generate_ui)
+↓
+ADK ejecuta la tool via MCP → llama al servidor de Stitch
+↓
+Stitch devuelve el resultado (HTML/CSS generado)
+↓
+Gemini recibe el resultado y forma la respuesta final
+
+7. Respuesta final
+generate_with_adk recorre los eventos del Runner hasta encontrar is_final_response(), extrae el texto y lo devuelve como string HTML.
+
+8. WebBuilderAgent.run() devuelve un GeneratedPageDTO
+json{
+  "html": "<!DOCTYPE html>...",
+  "framework": "html"
+}
+Y FastAPI lo serializa y lo manda al cliente.
 
 
 ---

@@ -1,17 +1,16 @@
-from fastapi import APIRouter, WebSocket
+from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
-from app.services.adk_agent_service import ADKAgentService
+from app.agents.web_builder_agent import WebBuilderAgent
+from app.dto.prompt_dto import PromptDTO
 
 router = APIRouter()
-adk_service = ADKAgentService()
 
 class ChatMessage(BaseModel):
     message: str
 
 @router.get("/chat", response_class=HTMLResponse)
 async def chat_page():
-    """Página HTML con interfaz de chat para el agente ADK"""
     return """
     <!DOCTYPE html>
     <html lang="es">
@@ -20,11 +19,7 @@ async def chat_page():
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ADK Agent Chat</title>
         <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
+            * { margin: 0; padding: 0; box-sizing: border-box; }
 
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,8 +33,8 @@ async def chat_page():
 
             .container {
                 width: 100%;
-                max-width: 700px;
-                height: 600px;
+                max-width: 900px;
+                height: 700px;
                 background: white;
                 border-radius: 12px;
                 box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -53,18 +48,10 @@ async def chat_page():
                 color: white;
                 padding: 20px;
                 text-align: center;
-                border-bottom: 2px solid rgba(255, 255, 255, 0.1);
             }
 
-            .header h1 {
-                font-size: 24px;
-                margin-bottom: 5px;
-            }
-
-            .header p {
-                font-size: 12px;
-                opacity: 0.9;
-            }
+            .header h1 { font-size: 24px; margin-bottom: 5px; }
+            .header p { font-size: 12px; opacity: 0.9; }
 
             .chat-messages {
                 flex: 1;
@@ -76,34 +63,22 @@ async def chat_page():
                 background: #f8f9fa;
             }
 
-            .message {
-                display: flex;
-                gap: 10px;
-                animation: slideIn 0.3s ease-out;
-            }
+            .message { display: flex; gap: 10px; animation: slideIn 0.3s ease-out; }
 
             @keyframes slideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
             }
 
-            .message.user {
-                justify-content: flex-end;
-            }
+            .message.user { justify-content: flex-end; }
 
             .message-content {
-                max-width: 500px;
+                max-width: 600px;
                 padding: 12px 16px;
                 border-radius: 10px;
-                word-wrap: break-word;
                 font-size: 14px;
                 line-height: 1.4;
+                word-wrap: break-word;
             }
 
             .message.user .message-content {
@@ -119,10 +94,13 @@ async def chat_page():
                 border-bottom-left-radius: 2px;
             }
 
-            .message.loading .message-content {
-                background: #e8e8e8;
-                color: #666;
-                font-style: italic;
+            .message.agent iframe {
+                width: 100%;
+                min-width: 600px;
+                height: 400px;
+                border: none;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             }
 
             .input-area {
@@ -143,9 +121,7 @@ async def chat_page():
                 transition: border-color 0.2s;
             }
 
-            input:focus {
-                border-color: #667eea;
-            }
+            input:focus { border-color: #667eea; }
 
             button {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -164,75 +140,42 @@ async def chat_page():
                 box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
             }
 
-            button:active {
-                transform: translateY(0);
-            }
+            button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-            button:disabled {
-                opacity: 0.6;
-                cursor: not-allowed;
-            }
-
-            .typing-indicator {
-                display: flex;
-                gap: 5px;
-                padding: 12px 16px;
-            }
-
+            .typing-indicator { display: flex; gap: 5px; padding: 12px 16px; }
             .typing-indicator span {
-                width: 8px;
-                height: 8px;
+                width: 8px; height: 8px;
                 background: #999;
                 border-radius: 50%;
                 animation: typing 1.4s infinite;
             }
-
-            .typing-indicator span:nth-child(2) {
-                animation-delay: 0.2s;
-            }
-
-            .typing-indicator span:nth-child(3) {
-                animation-delay: 0.4s;
-            }
+            .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+            .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
 
             @keyframes typing {
                 0%, 60%, 100% { transform: translateY(0); }
                 30% { transform: translateY(-10px); }
             }
 
-            .chat-messages::-webkit-scrollbar {
-                width: 8px;
-            }
-
-            .chat-messages::-webkit-scrollbar-track {
-                background: #f1f1f1;
-            }
-
-            .chat-messages::-webkit-scrollbar-thumb {
-                background: #888;
-                border-radius: 4px;
-            }
-
-            .chat-messages::-webkit-scrollbar-thumb:hover {
-                background: #555;
-            }
+            .chat-messages::-webkit-scrollbar { width: 8px; }
+            .chat-messages::-webkit-scrollbar-track { background: #f1f1f1; }
+            .chat-messages::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="header">
-                <h1> ADK Agent Chat</h1>
-                <p>Conversa con el agente de diseño web IA</p>
+                <h1>🤖 AI Web Builder</h1>
+                <p>Describe la página web que quieres y la generaré para ti</p>
             </div>
 
             <div class="chat-messages" id="messages">
                 <div class="message agent">
                     <div class="message-content">
-                        ¡Hola! Soy un asistente de diseño web impulsado por Google ADK. 
-                        ¿En qué puedo ayudarte hoy? Puedo generar diseños para:
-                        <br/>• E-commerce
-                        <br/>• Portafolios
-                        <br/>• Landing pages
+                        ¡Hola! Soy tu asistente de diseño web. Dime qué página quieres crear:<br/><br/>
+                        • <b>Tienda online</b> → "quiero una tienda de ropa"<br/>
+                        • <b>Portfolio</b> → "crea mi portfolio de diseñador"<br/>
+                        • <b>Landing page</b> → "landing para mi startup de IA"
                     </div>
                 </div>
             </div>
@@ -241,10 +184,10 @@ async def chat_page():
                 <input 
                     type="text" 
                     id="messageInput" 
-                    placeholder="Escribe tu pregunta aquí..."
+                    placeholder="Describe tu página web..."
                     autocomplete="off"
                 />
-                <button id="sendBtn" onclick="sendMessage()">Enviar</button>
+                <button id="sendBtn" onclick="sendMessage()">Generar</button>
             </div>
         </div>
 
@@ -264,12 +207,11 @@ async def chat_page():
                 const message = messageInput.value.trim();
                 if (!message) return;
 
-                // Agregar mensaje del usuario
-                addMessage(message, 'user');
+                addUserMessage(message);
                 messageInput.value = '';
                 sendBtn.disabled = true;
 
-                // Mostrar indicador de tipeo
+                // Indicador de carga
                 const loadingDiv = document.createElement('div');
                 loadingDiv.className = 'message agent';
                 loadingDiv.innerHTML = '<div class="message-content typing-indicator"><span></span><span></span><span></span></div>';
@@ -279,34 +221,56 @@ async def chat_page():
                 try {
                     const response = await fetch('/api/chat/message', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ message })
                     });
 
                     loadingDiv.remove();
 
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
                     const data = await response.json();
-                    addMessage(data.response, 'agent');
+                    addAgentMessage(data.response);
+
                 } catch (error) {
                     loadingDiv.remove();
-                    addMessage(`Error: ${error.message}. Por favor intenta de nuevo.`, 'agent');
+                    addTextMessage(`Error: ${error.message}. Por favor intenta de nuevo.`);
                 } finally {
                     sendBtn.disabled = false;
                     messageInput.focus();
                 }
             }
 
-            function addMessage(text, sender) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${sender}`;
-                messageDiv.innerHTML = `<div class="message-content">${escapeHtml(text)}</div>`;
-                messagesDiv.appendChild(messageDiv);
+            function addUserMessage(text) {
+                const div = document.createElement('div');
+                div.className = 'message user';
+                div.innerHTML = `<div class="message-content">${escapeHtml(text)}</div>`;
+                messagesDiv.appendChild(div);
+                scrollToBottom();
+            }
+
+            function addAgentMessage(html) {
+                const div = document.createElement('div');
+                div.className = 'message agent';
+
+                // Si parece HTML generado, mostrarlo en iframe
+                if (html.trim().startsWith('<!DOCTYPE') || html.trim().startsWith('<html')) {
+                    const encoded = html.replace(/"/g, '&quot;');
+                    div.innerHTML = `<iframe srcdoc="${encoded}"></iframe>`;
+                } else {
+                    // Si es texto normal, mostrarlo como mensaje
+                    div.innerHTML = `<div class="message-content">${escapeHtml(html)}</div>`;
+                }
+
+                messagesDiv.appendChild(div);
+                scrollToBottom();
+            }
+
+            function addTextMessage(text) {
+                const div = document.createElement('div');
+                div.className = 'message agent';
+                div.innerHTML = `<div class="message-content">${escapeHtml(text)}</div>`;
+                messagesDiv.appendChild(div);
                 scrollToBottom();
             }
 
@@ -315,17 +279,10 @@ async def chat_page():
             }
 
             function escapeHtml(text) {
-                const map = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#039;'
-                };
+                const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
                 return text.replace(/[&<>"']/g, m => map[m]);
             }
 
-            // Focus en input al cargar
             messageInput.focus();
         </script>
     </body>
@@ -334,14 +291,15 @@ async def chat_page():
 
 @router.post("/api/chat/message")
 async def chat_message(request: ChatMessage):
-    """Endpoint para enviar mensajes al agente ADK"""
     user_message = request.message.strip()
-    
+
     if not user_message:
         return {"response": "Por favor envía un mensaje."}
-    
+
     try:
-        response = await adk_service.chat(user_message)
-        return {"response": response}
+        agent = WebBuilderAgent()
+        prompt_dto = PromptDTO(prompt=user_message)
+        result = await agent.run(prompt_dto)
+        return {"response": result.html}
     except Exception as e:
         return {"response": f"Error al procesar tu mensaje: {str(e)}"}

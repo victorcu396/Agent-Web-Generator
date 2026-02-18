@@ -1,4 +1,5 @@
 import os
+import logging
 from dotenv import load_dotenv
 from google.genai import types
 from google.adk.agents import Agent
@@ -8,8 +9,17 @@ import asyncio
 from google.adk.tools.mcp_tool import McpToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
 
+# Configurar logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+
 load_dotenv()
 
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 STITCH_API_KEY = os.getenv("STITCH_API_KEY")
 APP_NAME = "stitch_app"
 USER_ID = "stitch_user"
