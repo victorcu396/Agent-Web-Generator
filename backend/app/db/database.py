@@ -3,7 +3,6 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.exc import OperationalError
 from dotenv import load_dotenv
 
-# Obtener DATABASE_URL desde .env o usar valor por defecto
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres"
@@ -75,7 +74,7 @@ def get_db_info():
         print(f"Error obteniendo información: {str(e)}")    
 
 if __name__ == "__main__":
-    print("🔍 Verificando conexión a PostgreSQL...\n")
+    print(" Verificando conexión a PostgreSQL...\n")
     if test_connection():
         get_db_info()
     else:

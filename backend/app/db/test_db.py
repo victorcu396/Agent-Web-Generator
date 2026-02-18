@@ -69,7 +69,7 @@ def test_table_operations():
     print("\n4️  Test de operaciones con tablas...")
     try:
         with engine.connect() as conn:
-            # Intentar crear una tabla de prueba
+            # crear una tabla de prueba
             conn.execute(text("""
                 CREATE TABLE IF NOT EXISTS test_connection (
                     id SERIAL PRIMARY KEY,

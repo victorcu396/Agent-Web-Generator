@@ -224,7 +224,7 @@ async def chat_page():
     <body>
         <div class="container">
             <div class="header">
-                <h1>🤖 ADK Agent Chat</h1>
+                <h1> ADK Agent Chat</h1>
                 <p>Conversa con el agente de diseño web IA</p>
             </div>
 

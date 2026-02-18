@@ -13,7 +13,7 @@ STITCH_API_KEY = os.getenv("STITCH_API_KEY")
 APP_NAME = "stitch_app"
 USER_ID = "stitch_user"
 
-# Instancia única reutilizable
+
 _toolset = None
 _runner = None
 _session = None
@@ -60,7 +60,7 @@ async def _initialize():
 
 
 async def generate_with_adk(plan) -> str:
-    await _initialize()  # ← conecta a Stitch MCP (solo la primera vez)
+    await _initialize() 
 
     user_text = f"Genera una página {plan.site_type} con secciones {plan.sections} y estilo {plan.style}."
     if getattr(plan, 'images', None):
