@@ -31,10 +31,11 @@ _session_service = None
 _lock = asyncio.Lock()
 
 async def _initialize():
+    global _toolset, _runner, _session, _session_service
     async with _lock:
         if _runner is not None:
             return
-    global _toolset, _runner, _session, _session_service
+    
 
     if _runner is not None:
         return
