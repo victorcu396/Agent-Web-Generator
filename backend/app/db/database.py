@@ -3,7 +3,6 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.exc import OperationalError
 from dotenv import load_dotenv
 
-# Obtener DATABASE_URL desde .env o usar valor por defecto
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres"
@@ -26,7 +25,7 @@ def test_connection():
     try:
         with engine.connect() as conn:
             result = conn.execute(text("SELECT 1"))
-            print("✓ Conexión a PostgreSQL exitosa")
+            print(" Conexión a PostgreSQL exitosa")
             print(f"  Database: {engine.url.database}")
             print(f"  Host: {engine.url.host}:{engine.url.port}")
             return True
@@ -55,7 +54,7 @@ def get_db_info():
                 WHERE table_schema = 'public'
             """)).fetchone()[0]
             
-            print("\n📊 Información de la base de datos:")
+            print("\n Información de la base de datos:")
             print(f"  PostgreSQL: {version.split(',')[0]}")
             print(f"  Tablas en schema 'public': {tables_count}")
             
@@ -75,9 +74,9 @@ def get_db_info():
         print(f"Error obteniendo información: {str(e)}")    
 
 if __name__ == "__main__":
-    print("🔍 Verificando conexión a PostgreSQL...\n")
+    print(" Verificando conexión a PostgreSQL...\n")
     if test_connection():
         get_db_info()
     else:
-        print("\n⚠️  Asegúrate de que PostgreSQL está corriendo")
+        print("\n  Asegúrate de que PostgreSQL está corriendo")
         print("   y que las credenciales en .env son correctas")

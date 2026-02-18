@@ -9,7 +9,6 @@ router = APIRouter()
 class ChatMessage(BaseModel):
     message: str
 
-
 @router.get("/chat", response_class=HTMLResponse)
 async def chat_page():
     return """
@@ -289,7 +288,6 @@ async def chat_page():
     </body>
     </html>
     """
-
 
 @router.post("/api/chat/message")
 async def chat_message(request: ChatMessage):

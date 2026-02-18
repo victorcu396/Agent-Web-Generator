@@ -7,14 +7,13 @@ from google.adk.sessions import InMemorySessionService
 from google.adk.tools.mcp_tool import McpToolset
 from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
 
-# Cargar variables de entorno al importar
+# Carga variables de entorno al importar
 load_dotenv()
 
 STITCH_API_KEY = os.getenv("STITCH_API_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 APP_NAME = "stitch_chat_app"
 USER_ID = "stitch_chat_user"
-
 
 class ADKAgentService:
     """

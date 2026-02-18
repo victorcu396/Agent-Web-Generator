@@ -7,15 +7,12 @@ import os
 import uuid
 
 router = APIRouter()
-
 agent = WebBuilderAgent()
-
 
 @router.post("/generate", response_model=GeneratedPageDTO)
 async def generate_page(data: PromptDTO):
     result = await agent.run(data)
     return result
-
 
 @router.post("/generate/upload", response_model=GeneratedPageDTO)
 async def generate_with_upload(

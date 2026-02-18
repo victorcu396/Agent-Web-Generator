@@ -9,41 +9,41 @@ import sys
 
 def test_basic_connection():
     """Test básico de conexión"""
-    print("1️⃣  Test básico de conexión...")
+    print("1️  Test básico de conexión...")
     try:
         conn = engine.connect()
-        print("   ✓ Conexión exitosa")
+        print("    Conexión exitosa")
         conn.close()
         return True
     except OperationalError as e:
-        print(f"   ✗ Error de conexión: {e}")
+        print(f"    Error de conexión: {e}")
         return False
     except Exception as e:
-        print(f"   ✗ Error inesperado: {e}")
+        print(f"    Error inesperado: {e}")
         return False
 
 
 def test_query_execution():
     """Test de ejecución de queries"""
-    print("\n2️⃣  Test de ejecución de queries...")
+    print("\n2️  Test de ejecución de queries...")
     try:
         with engine.connect() as conn:
             result = conn.execute(text("SELECT 1 as test"))
             row = result.fetchone()
             if row[0] == 1:
-                print("   ✓ Query ejecutada correctamente")
+                print("    Query ejecutada correctamente")
                 return True
             else:
-                print("   ✗ Resultado inesperado")
+                print("    Resultado inesperado")
                 return False
     except Exception as e:
-        print(f"   ✗ Error ejecutando query: {e}")
+        print(f"    Error ejecutando query: {e}")
         return False
 
 
 def test_database_info():
     """Test de información de la DB"""
-    print("\n3️⃣  Información de la base de datos...")
+    print("\n3️  Información de la base de datos...")
     try:
         with engine.connect() as conn:
             # Versión
@@ -60,16 +60,16 @@ def test_database_info():
             
             return True
     except Exception as e:
-        print(f"   ✗ Error obteniendo info: {e}")
+        print(f"    Error obteniendo info: {e}")
         return False
 
 
 def test_table_operations():
     """Test de operaciones con tablas"""
-    print("\n4️⃣  Test de operaciones con tablas...")
+    print("\n4️  Test de operaciones con tablas...")
     try:
         with engine.connect() as conn:
-            # Intentar crear una tabla de prueba
+            # crear una tabla de prueba
             conn.execute(text("""
                 CREATE TABLE IF NOT EXISTS test_connection (
                     id SERIAL PRIMARY KEY,
@@ -78,7 +78,7 @@ def test_table_operations():
                 )
             """))
             conn.commit()
-            print("   ✓ Tabla de prueba creada")
+            print("    Tabla de prueba creada")
             
             # Insertar un registro
             conn.execute(text("""
@@ -86,7 +86,7 @@ def test_table_operations():
                 VALUES ('Connection test successful')
             """))
             conn.commit()
-            print("   ✓ Registro insertado")
+            print("    Registro insertado")
             
             # Leer el registro
             result = conn.execute(text("""
@@ -94,25 +94,25 @@ def test_table_operations():
                 ORDER BY id DESC LIMIT 1
             """))
             row = result.fetchone()
-            print(f"   ✓ Registro leído: '{row[0]}'")
+            print(f"    Registro leído: '{row[0]}'")
             
             # Limpiar
             conn.execute(text("DROP TABLE test_connection"))
             conn.commit()
-            print("   ✓ Tabla de prueba eliminada")
+            print("    Tabla de prueba eliminada")
             
             return True
     except Exception as e:
-        print(f"   ✗ Error en operaciones: {e}")
+        print(f"    Error en operaciones: {e}")
         return False
 
 
 def run_all_tests():
     """Ejecutar todos los tests"""
     print("=" * 60)
-    print("🧪 PRUEBAS DE CONEXIÓN A POSTGRESQL")
+    print(" PRUEBAS DE CONEXIÓN A POSTGRESQL")
     print("=" * 60)
-    print(f"\n📍 URL de conexión: {DATABASE_URL.split('@')[1]}")  # Sin mostrar credenciales
+    print(f"\n URL de conexión: {DATABASE_URL.split('@')[1]}")  # Sin mostrar credenciales
     print()
     
     tests = [
@@ -130,14 +130,14 @@ def run_all_tests():
             passed += 1
     
     print("\n" + "=" * 60)
-    print(f"📊 RESULTADOS: {passed}/{total} tests pasados")
+    print(f" RESULTADOS: {passed}/{total} tests pasados")
     print("=" * 60)
     
     if passed == total:
-        print("\n✅ ¡Todos los tests pasaron! La base de datos está correctamente configurada.\n")
+        print("\n ¡Todos los tests pasaron! La base de datos está correctamente configurada.\n")
         return 0
     else:
-        print("\n⚠️  Algunos tests fallaron. Revisa la configuración.\n")
+        print("\n  Algunos tests fallaron. Revisa la configuración.\n")
         return 1
 
 

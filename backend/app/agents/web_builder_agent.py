@@ -3,7 +3,6 @@ from app.dto.web_plan_dto import WebPlanDTO
 from app.dto.result_dto import GeneratedPageDTO
 from app.services.page_generator import PageGenerator
 
-
 class WebBuilderAgent:
 
     def __init__(self):
@@ -39,7 +38,6 @@ class WebBuilderAgent:
             docs=docs,
         )
         
-
     async def run(self, prompt_dto: PromptDTO) -> GeneratedPageDTO:
 
         plan = self.analyze_prompt(prompt_dto.prompt, images=getattr(prompt_dto, 'images', None), docs=getattr(prompt_dto, 'docs', None))
