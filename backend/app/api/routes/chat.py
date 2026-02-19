@@ -22,10 +22,6 @@ router = APIRouter()
 agent = WebBuilderAgent()
 
 
-class ChatMessage(BaseModel):
-    message: str
-    session_id: str  # el frontend genera y envía este ID
-
 
 @router.get("/chat", response_class=HTMLResponse)
 async def chat_page():
@@ -151,17 +147,44 @@ async def chat_page():
             }
 
             function addAgentMessage(html) {
-                const div = document.createElement('div');
-                div.className = 'message agent';
+    const div = document.createElement('div');
+    div.className = 'message agent';
 
-                if (!html.trim().startsWith('<!DOCTYPE') && !html.trim().startsWith('<html')) {
-                    html = `<html><body>${html}</body></html>`;
-                }
-                const encoded = html.replace(/"/g, '&quot;');
-                div.innerHTML = `<iframe srcdoc="${encoded}"></iframe>`;
-                messagesDiv.appendChild(div);
-                scrollToBottom();
-            }
+    if (html.trim().startsWith('<!DOCTYPE') || html.trim().startsWith('<html')) {
+        // Mostrar el código en un bloque de código
+        div.innerHTML = `
+            <div class="message-content" style="max-width:700px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span style="font-weight:600; color:#667eea;">HTML generado</span>
+                    <button onclick="copyCode(this)" style="padding:6px 12px; font-size:12px;">Copiar</button>
+                </div>
+                <pre style="background:#1e1e1e; color:#d4d4d4; padding:16px; border-radius:8px; overflow-x:auto; font-size:12px; max-height:400px; overflow-y:auto;"><code>${escapeHtml(html)}</code></pre>
+                <button onclick="previewCode(this)" data-html="${html.replace(/"/g, '&quot;')}" 
+                    style="margin-top:8px; width:100%;">
+                    👁 Ver Preview
+                </button>
+            </div>`;
+    } else {
+        div.innerHTML = `<div class="message-content">${escapeHtml(html)}</div>`;
+    }
+
+    messagesDiv.appendChild(div);
+    scrollToBottom();
+}
+
+function copyCode(btn) {
+    const code = btn.closest('.message-content').querySelector('code').innerText;
+    navigator.clipboard.writeText(code);
+    btn.textContent = '✓ Copiado';
+    setTimeout(() => btn.textContent = 'Copiar', 2000);
+}
+
+function previewCode(btn) {
+    const html = btn.getAttribute('data-html');
+    const win = window.open('', '_blank');
+    win.document.write(html);
+    win.document.close();
+}
 
             function addTextMessage(text) {
                 const div = document.createElement('div');
@@ -187,34 +210,22 @@ async def chat_page():
     """
 
 
+class ChatMessage(BaseModel):
+    message: str
+    session_id: str | None = None
+
+
 @router.post("/api/chat/message")
-async def chat_message(request: ChatMessage, db: Session = Depends(get_db)):
+async def chat_message(request: ChatMessage):
     user_message = request.message.strip()
+
     if not user_message:
         return {"response": "Por favor envía un mensaje."}
 
     try:
-        # Prefijo para forzar HTML
-        user_message_prefixed = f"GENERATE_HTML: {user_message}"
-
-        # Obtener o crear usuario
-        user = repository.get_or_create_user(db, request.session_id)
-        repository.save_message(db, user.id, "user", user_message)
-
-        # Generar página
-        prompt_dto = PromptDTO(prompt=user_message_prefixed)
+        agent = WebBuilderAgent()
+        prompt_dto = PromptDTO(prompt=user_message)
         result = await agent.run(prompt_dto)
-
-        # Determinar plan / tipo de página
-        plan = agent.analyze_prompt(user_message)
-        site_type = getattr(plan, "site_type", "tienda online")  # fallback
-
-        # Guardar respuesta y página generada
-        repository.save_generated_page(db, user.id, user_message, site_type, result.html)
-        repository.save_message(db, user.id, "agent", result.html)
-
         return {"response": result.html}
-
     except Exception as e:
-        logger.error(f"Error procesando mensaje: {str(e)}", exc_info=True)
         return {"response": f"Error al procesar tu mensaje: {str(e)}"}
