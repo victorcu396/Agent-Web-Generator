@@ -11,7 +11,6 @@ from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnecti
 
 load_dotenv()
 
-# Configurar logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -22,46 +21,16 @@ STITCH_API_KEY = os.getenv("STITCH_API_KEY")
 APP_NAME = "stitch_app"
 USER_ID = "stitch_user"
 
-
 _toolset = None
 _runner = None
 _session = None
 _session_service = None
-_lock = asyncio.Lock()  # Evita condición de carrera en inicialización concurrente
+_lock = asyncio.Lock()
 
 
 async def _initialize():
     global _toolset, _runner, _session, _session_service
-    async with _lock:
-        if _runner is not None:
-            return
-    
 
-    if _runner is not None:
-        return
-
-    _toolset = McpToolset(
-        connection_params=StreamableHTTPConnectionParams(
-            url="https://stitch.googleapis.com/mcp",
-            headers={
-                "Accept": "application/json",
-                "X-Goog-Api-Key": STITCH_API_KEY
-            },
-            project_id=os.getenv("GOOGLE_CLOUD_PROJECT")
-        ),
-    )
-
-    root_agent = Agent(
-        name="stitch_agent",
-        model="gemini-2.5-flash",
-        instruction=(
-        "You are a professional web UI generator powered by Google Stitch. "
-        "Whenever the user asks for a webpage, you MUST generate full, valid HTML/CSS/JS code. "
-        "Do NOT provide explanations or summaries. "
-        "Respond only with code that can be used directly in a browser."
-        ),
-        tools=[_toolset],
-    )
     async with _lock:
         if _runner is not None:
             return
@@ -75,6 +44,7 @@ async def _initialize():
                     "Accept": "application/json",
                     "X-Goog-Api-Key": STITCH_API_KEY
                 },
+                project_id=os.getenv("GOOGLE_CLOUD_PROJECT"),
             ),
         )
 
@@ -82,9 +52,13 @@ async def _initialize():
             name="stitch_agent",
             model="gemini-2.5-flash",
             instruction=(
-                "You are a UI design assistant powered by Google Stitch. "
-                "Generate complete, responsive HTML/CSS/JS pages based on the user's plan. "
-                "Return only valid HTML code, no explanations."
+                "You are a professional web UI generator powered by Google Stitch. "
+                "ALWAYS return the complete raw HTML/CSS/JS code directly. "
+                "NEVER describe what you generated. "
+                "NEVER summarize. "
+                "NEVER say 'I have generated' or 'The page has been created'. "
+                "Your response must start with <!DOCTYPE html> and end with </html>. "
+                "Return ONLY the HTML code, nothing else."
             ),
             tools=[_toolset],
         )
@@ -107,24 +81,32 @@ async def _initialize():
 async def generate_with_adk(plan) -> str:
     await _initialize()
 
-    user_text = f"Genera una página {plan.site_type} con secciones {plan.sections} y estilo {plan.style}."
+    user_text = (
+        f"Generate a complete {plan.site_type} HTML page with sections: {plan.sections} and style: {plan.style}. "
+        f"Return ONLY the raw HTML code starting with <!DOCTYPE html>. "
+        f"Do not describe it, do not summarize it, just return the complete HTML."
+    )
     if getattr(plan, 'images', None):
-        user_text += f" Usa estas imágenes: {plan.images}."
+        user_text += f" Include these images: {plan.images}."
     if getattr(plan, 'docs', None):
-        user_text += f" Refiérete a estos documentos: {plan.docs}."
+        user_text += f" Reference these documents: {plan.docs}."
 
     logger.info(f"Generando página tipo '{plan.site_type}'...")
+
+    # Sesión fresca por cada generación para evitar historial acumulado
+    session = await _session_service.create_session(
+        app_name=APP_NAME,
+        user_id=USER_ID
+    )
 
     content = types.Content(role="user", parts=[types.Part(text=user_text)])
 
     html_parts = []
-    events = _runner.run_async(
-        session_id=_session.id,
-        user_id=_session.user_id,
+    async for event in _runner.run_async(
+        session_id=session.id,
+        user_id=session.user_id,
         new_message=content
-    )
-
-    async for event in events:
+    ):
         if event.is_final_response() and event.content and event.content.parts:
             for p in event.content.parts:
                 if getattr(p, "text", None):
