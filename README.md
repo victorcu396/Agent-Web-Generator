@@ -1,24 +1,24 @@
-# pyproyect.toml
+# Agent-Web-Generator
 
 [![PyPI - Version](https://img.shields.io/pypi/v/pyproyect-toml.svg)](https://pypi.org/project/pyproyect-toml)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyproyect-toml.svg)](https://pypi.org/project/pyproyect-toml)
 
------
+🚀 Generación automática de páginas web usando **FastAPI**, **Gemini ADK** y **Stitch MCP Server**.
 
-## Table of Contents
+---
 
-- [Installation](#installation)
-- [License](#license)
+## 🧩 Descripción
 
-## Installation
+Agent-Web-Generator permite:
 
-```console
-pip install pyproyect-toml
-```
+- Analizar prompts de usuario
+- Generar planes de construcción web automáticamente
+- Crear HTML/CSS listo para usar
+- Integración con herramientas Gemini ADK y Stitch MCP
 
-## License
+Es ideal para generar **landing pages**, **e-commerce** o **portfolios** de manera automática a partir de un simple texto.
 
-`pyproyect-toml` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+---
 
 
 ┌─────────────────────────────────────────────────┐
@@ -30,7 +30,7 @@ pip install pyproyect-toml
 │     ↓                                           │
 │  Servicios (adk_agent_service.py)               │
 │     ↓                                           │
-│  Base de Datos (database.py) ← AQUÍ ESTAMOS     │
+│  Base de Datos (database.py)                    │
 │     ↓                                           │
 └─────┼───────────────────────────────────────────┘
       ↓
@@ -151,6 +151,55 @@ Gemini ADK → MCP Client → Stitch MCP Server
 
 ---
 
+
+## 🛠️ Instalación (Local)
+
+Clonar el repositorio:
+
+git clone https://github.com/Formasster/Agent-Web-Generator.git
+cd Agent-Web-Generator/backend
+
+
+Crear entorno virtual e instalar dependencias:
+
+python -m venv .venv
+source .venv/bin/activate   # Mac/Linux
+# .venv\Scripts\activate    # Windows
+pip install -r requirements.txt
+
+
+Crear archivo .env con la configuración de PostgreSQL y APIs:
+
+DATABASE_HOSTNAME=127.0.0.1
+DATABASE_PORT=5432
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_NAME=boilerplate_db
+GOOGLE_API_KEY=tu_api_key
+OPENAI_API_KEY=tu_api_key
+
+
+Levantar el backend:
+
+uvicorn app.main:app --reload
+
+## 🐳 Instalación con Docker
+
+Crear .env como arriba
+
+Desde la raíz del proyecto:
+
+docker compose build --no-cache
+docker compose up
+
+
+Acceder a la API:
+
+http://localhost:8000/docs
+
+
+
+
 # 📡 Endpoints FastAPI
 
 Base URL:
@@ -176,7 +225,6 @@ Permite enviar prompts directamente al sistema de generación.
 ---
 
 ## 📁 Subida de archivos
-
 
 
 POST /uploads
