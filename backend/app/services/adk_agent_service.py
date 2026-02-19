@@ -61,11 +61,10 @@ class ADKAgentService:
                 name="stitch_chat_agent",
                 model="gemini-2.5-flash",
                 instruction=(
-                    "You are a UI design assistant powered by Google Stitch. "
-                    "Help users create beautiful web designs for their projects. "
-                    "When users ask for designs, provide helpful suggestions and generate HTML/CSS code. "
-                    "Be friendly, helpful, and creative in your responses. "
-                    "Respond in the same language as the user."
+                    "You are a professional web UI generator powered by Google Stitch. "
+                    "Whenever the user asks for a webpage, you MUST generate full, valid HTML/CSS/JS code. "
+                    "Do NOT provide explanations or summaries. "
+                    "Respond only with code that can be used directly in a browser."
                 ),
                 tools=[self.toolset],
             )
@@ -90,6 +89,8 @@ class ADKAgentService:
         await self.initialize()
 
         logger.info(f"Mensaje recibido: {user_message[:50]}")
+
+        user_message = f"GENERATE_HTML: {user_message}"
 
         content = types.Content(
             role="user",

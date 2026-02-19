@@ -47,6 +47,7 @@ async def _initialize():
                 "Accept": "application/json",
                 "X-Goog-Api-Key": STITCH_API_KEY
             },
+            project_id=os.getenv("GOOGLE_CLOUD_PROJECT")
         ),
     )
 
@@ -54,13 +55,13 @@ async def _initialize():
         name="stitch_agent",
         model="gemini-2.5-flash",
         instruction=(
-            "You are a UI design assistant powered by Google Stitch. "
-            "Generate complete, responsive HTML/CSS/JS pages based on the user's plan. "
-            "Return only valid HTML code, no explanations."
+        "You are a professional web UI generator powered by Google Stitch. "
+        "Whenever the user asks for a webpage, you MUST generate full, valid HTML/CSS/JS code. "
+        "Do NOT provide explanations or summaries. "
+        "Respond only with code that can be used directly in a browser."
         ),
         tools=[_toolset],
     )
-
     async with _lock:
         if _runner is not None:
             return
