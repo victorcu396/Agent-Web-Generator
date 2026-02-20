@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green E-commerce Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #13ec37; /* Vibrant green for accents */
+            --dark-green: #0e8a2b; /* Darker green for buttons/highlights */
+            --light-mint: #e0ffe0; /* Very light mint green */
+            --white: #ffffff;
+            --off-white: #f8f8f8;
+            --text-color: #333333;
+            --secondary-text-color: #666666;
+            --border-color: #e0e0e0;
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --roundness: 8px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: var(--text-color);
+            background-color: var(--off-white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header/Navigation */
+        header {
+            background-color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 4px var(--shadow-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .cta-button {
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: var(--roundness);
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #0b6b23; /* Slightly darker green on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 20px;
+            background-color: var(--light-mint);
+            text-align: center;
+            gap: 40px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            color: var(--dark-green);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            color: var(--secondary-text-color);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--roundness);
+            box-shadow: 0 10px 20px var(--shadow-light);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 80px 20px;
+            text-align: center;
+            background-color: var(--white);
+        }
+
+        .products h2 {
+            font-size: 2.8em;
+            color: var(--dark-green);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: var(--roundness);
+            box-shadow: 0 4px 8px var(--shadow-light);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--shadow-light);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 1.4em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .product-info p {
+            font-size: 1em;
+            color: var(--secondary-text-color);
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart-button {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 10px 15px;
+            border-radius: var(--roundness);
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        .add-to-cart-button:hover {
+            background-color: var(--dark-green);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 20px;
+            background-color: var(--light-mint);
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-size: 2.8em;
+            color: var(--dark-green);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .price-card {
+            background-color: var(--white);
+            border-radius: var(--roundness);
+            box-shadow: 0 4px 8px var(--shadow-light);
+            padding: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid var(--border-color);
+        }
+
+        .price-card.highlighted {
+            border-color: var(--primary-green);
+            box-shadow: 0 8px 16px rgba(19, 236, 55, 0.2);
+            transform: scale(1.03);
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--shadow-light);
+        }
+
+        .price-card h3 {
+            font-size: 2em;
+            color: var(--dark-green);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .price-card .price {
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .price-card .price span {
+            font-size: 0.5em;
+            font-weight: 400;
+            color: var(--secondary-text-color);
+        }
+
+        .price-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .price-card ul li {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .price-card ul li::before {
+            content: '✓';
+            color: var(--primary-green);
+            margin-right: 10px;
+            font-weight: 700;
+        }
+
+        .price-card .select-plan-button {
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: var(--roundness);
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .price-card .select-plan-button:hover {
+            background-color: #0b6b23;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 20px;
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.8em;
+            color: var(--dark-green);
+            margin-bottom: 50px;
+            font-weight: 700;
+        }
+
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background-color: var(--off-white);
+            padding: 40px;
+            border-radius: var(--roundness);
+            box-shadow: 0 4px 8px var(--shadow-light);
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--roundness);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(19, 236, 55, 0.2);
+            outline: none;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form .submit-button {
+            background-color: var(--dark-green);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: var(--roundness);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: auto;
+            display: inline-block;
+        }
+
+        .contact-form .submit-button:hover {
+            background-color: #0b6b23;
+            transform: translateY(-2px);
+        }
+
+        .contact-info {
+            text-align: center;
+        }
+
+        .contact-info p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: var(--secondary-text-color);
+        }
+
+        .contact-info a {
+            color: var(--primary-green);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--dark-green);
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            color: var(--dark-green);
+            font-size: 1.8em;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-green);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                text-align: left;
+                padding: 100px 20px;
+                gap: 60px;
+            }
+
+            .hero-content {
+                flex: 1;
+            }
+
+            .hero-image {
+                flex: 1;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .contact-content {
+                flex-direction: row;
+                text-align: left;
+                align-items: flex-start;
+            }
+
+            .contact-form, .contact-info {
+                flex: 1;
+            }
+
+            .social-icons {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            .products h2, .pricing h2, .contact h2 {
+                font-size: 2em;
+            }
+            .nav-links {
+                display: none; /* Hide nav links on small screens for simplicity, could add a hamburger menu */
+            }
+            nav {
+                justify-content: center;
+            }
+            .cta-button {
+                display: none; /* Hide cta button on small screens for simplicity */
+            }
+        }
+    </style>
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4C/zpV+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2u1P2+U+2>
+    <body>
+        
+    </body>

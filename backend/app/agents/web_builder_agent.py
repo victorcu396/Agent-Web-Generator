@@ -32,9 +32,10 @@ class WebBuilderAgent:
             )
 
         return WebPlanDTO(
-            site_type="landing",
-            sections=["hero", "features", "pricing", "contact"],
-            style="modern saas",
+            site_type="ecommerce",
+            sections=["hero", "products", "pricing", "contact"],
+            style="modern ecommerce",
+            prompt=prompt,  # ← añade esto en los tres returns
             images=images,
             docs=docs,
         )

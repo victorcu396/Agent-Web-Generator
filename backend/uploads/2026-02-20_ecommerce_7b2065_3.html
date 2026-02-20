@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Ecommerce Landing Page Complete</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #f2b90d;
+      --secondary-color: #4a4a4a;
+      --background-color: #ffffff;
+      --text-color: #333333;
+      --light-gray: #f9f9f9;
+      --dark-gray: #e0e0e0;
+      --border-radius: 8px;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    header {
+      background-color: var(--background-color);
+      padding: 20px 0;
+      box-shadow: 0 2px 4px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 2.5em;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--secondary-color);
+      font-weight: 500;
+      font-size: 1.1em;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .cart-icon {
+      font-size: 1.5em;
+      color: var(--secondary-color);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .cart-icon:hover {
+      color: var(--primary-color);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://via.placeholder.com/1500x800') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 150px 20px;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-family: serif;
+      font-size: 4.5em;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      text-shadow: 2px 2px 4px var(--shadow);
+    }
+
+    .hero p {
+      font-size: 1.5em;
+      margin-bottom: 40px;
+      text-shadow: 1px 1px 2px var(--shadow);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      font-weight: 700;
+      font-size: 1.1em;
+      transition: var(--transition);
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background-color: darken(var(--primary-color), 10%);
+      transform: translateY(-2px);
+    }
+
+    /* Products Section */
+    .products {
+      padding: 80px 0;
+      background-color: var(--light-gray);
+      text-align: center;
+    }
+
+    .products h2 {
+      font-size: 3em;
+      margin-bottom: 60px;
+      color: var(--secondary-color);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .product-card {
+      background-color: var(--background-color);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 8px var(--shadow);
+      padding: 20px;
+      text-align: left;
+      transition: var(--transition);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-card img {
+      max-width: 100%;
+      border-radius: var(--border-radius);
+      margin-bottom: 15px;
+    }
+
+    .product-card h3 {
+      font-size: 1.8em;
+      color: var(--secondary-color);
+      margin-bottom: 10px;
+    }
+
+    .product-card .price {
+      font-size: 1.5em;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-top: 15px;
+    }
+
+    /* Pricing Section */
+    .pricing {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .pricing h2 {
+      font-size: 3em;
+      margin-bottom: 60px;
+      color: var(--secondary-color);
+    }
+
+    .pricing-toggle {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+      background-color: var(--dark-gray);
+      border-radius: 50px;
+      padding: 5px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .pricing-toggle button {
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: var(--transition);
+      font-weight: 500;
+      color: var(--secondary-color);
+    }
+
+    .pricing-toggle button.active {
+      background-color: var(--primary-color);
+      color: white;
+      box-shadow: 0 2px 4px var(--shadow);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .pricing-card {
+      background-color: var(--background-color);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 8px var(--shadow);
+      padding: 40px;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .pricing-card.highlight {
+      border: 2px solid var(--primary-color);
+    }
+
+    .pricing-card h3 {
+      font-size: 2.2em;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+    }
+
+    .pricing-card .price-value {
+      font-size: 3.5em;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--secondary-color);
+    }
+
+    .pricing-card .price-value span {
+      font-size: 0.5em;
+      font-weight: 400;
+      color: #777;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 30px 0;
+      text-align: left;
+      width: 100%;
+    }
+
+    .pricing-card ul li {
+      margin-bottom: 15px;
+      font-size: 1.1em;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pricing-card ul li::before {
+      content: '✓';
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+
+    .pricing-card .btn-primary {
+      width: 100%;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 80px 0;
+      background-color: var(--light-gray);
+    }
+
+    .contact h2 {
+      font-size: 3em;
+      margin-bottom: 60px;
+      text-align: center;
+      color: var(--secondary-color);
+    }
+
+    .contact-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+      padding: 0 20px;
+    }
+
+    .contact-form {
+      flex: 2;
+      min-width: 300px;
+    }
+
+    .contact-form form {
+      background-color: var(--background-color);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 8px var(--shadow);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-form label {
+      font-weight: 500;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid var(--dark-gray);
+      border-radius: var(--border-radius);
+      font-size: 1em;
+      font-family: 'Manrope', sans-serif;
+      box-sizing: border-box;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .contact-form button {
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-weight: 700;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .contact-form button:hover {
+      background-color: darken(var(--secondary-color), 10%);
+      transform: translateY(-2px);
+    }
+
+    .contact-details {
+      flex: 1;
+      min-width: 250px;
+      background-color: var(--background-color);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 8px var(--shadow);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .contact-details p {
+      font-size: 1.1em;
+      margin: 0;
+      color: var(--text-color);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .social-icons a {
+      font-size: 1.8em;
+      color: var(--secondary-color);
+      transition: var(--transition);
+    }
+
+    .social-icons a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--secondary-color);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9em;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        background-color: var(--background-color);
+        position: absolute;
+        top: 80px;
+        left: 0;
+        box-shadow: 0 2px 4px var(--shadow);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links li {
+        margin: 10px 0;
+      }
+
+      .menu-toggle {
+        display: block;
+        font-size: 1.8em;
+        cursor: pointer;
+        color: var(--secondary-color);
+      }
+
+      .hero h1 {
+        font-size: 3em;
+      }
+
+      .hero p {
+        font-size: 1.2em;
+      }
+
+      .product-grid,
+      .pricing-grid,
+      .contact-content {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+      }
+
+      .contact-content {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 2em;
+      }
+
+      .hero h1 {
+        font-size: 2.5em;
+      }
+
+      .hero p {
+        font-size: 1em;
+      }
+
+      .btn-primary {
+        padding: 12px 25px;
+        font-size: 1em;
+      }
+
+      .products h2,
+      .pricing h2,
+      .contact h2 {
+        font-size: 2.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">LUXE</div>
+        <ul class="nav-links">
+          <li><a href="#products">Shop</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="cart-icon">🛒</div>
+        <div class="menu-toggle" style="display: none;">☰</div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1>Future of Living</h1>
+      <p>Discover a curated collection of innovative lifestyle and tech products.</p>
+      <a href="#products" class="btn-primary">Shop Now</a>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <div class="container">
+      <h2>Our Products</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="https://via.placeholder.com/300x200" alt="Product 1">
+          <h3>Smart Watch Pro</h3>
+          <p>Stay connected and track your fitness with our advanced smartwatch.</p>
+          <div class="price">$299.00</div>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/300x200" alt="Product 2">
+          <h3>Noise-Cancelling Headphones</h3>
+          <p>Immerse yourself in pure audio with superior comfort.</p>
+          <div class="price">$199.00</div>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/300x200" alt="Product 3">
+          <h3>Portable Espresso Maker</h3>
+          <p>Enjoy rich, delicious espresso anytime, anywhere.</p>
+          <div class="price">$129.00</div>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/300x200" alt="Product 4">
+          <h3>Smart Home Hub</h3>
+          <p>Control all your smart devices from one central hub.</p>
+          <div class="price">$349.00</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <h2>Flexible Pricing</h2>
+      <div class="pricing-toggle">
+        <button class="active">Monthly</button>
+        <button>Yearly</button>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>Basic</h3>
+          <div class="price-value">$9.99<span>/month</span></div>
+          <ul>
+            <li>✓ Access to basic features</li>
+            <li>✓ Email support</li>
+            <li>✓ 10GB storage</li>
+          </ul>
+          <a href="#" class="btn-primary">Get Started</a>
+        </div>
+        <div class="pricing-card highlight">
+          <h3>Pro</h3>
+          <div class="price-value">$19.99<span>/month</span></div>
+          <ul>
+            <li>✓ All Basic features</li>
+            <li>✓ Priority support</li>
+            <li>✓ 100GB storage</li>
+            <li>✓ Advanced analytics</li>
+          </ul>
+          <a href="#" class="btn-primary">Get Started</a>
+        </div>
+        <div class="pricing-card">
+          <h3>Elite</h3>
+          <div class="price-value">$49.99<span>/month</span></div>
+          <ul>
+            <li>✓ All Pro features</li>
+            <li>✓ 24/7 dedicated support</li>
+            <li>✓ Unlimited storage</li>
+            <li>✓ Custom integrations</li>
+          </ul>
+          <a href="#" class="btn-primary">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>Get in Touch</h2>
+      <div class="contact-content">
+        <div class="contact-form">
+          <form>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+        <div class="contact-details">
+          <p><strong>Email:</strong> info@luxe.com</p>
+          <p><strong>Phone:</strong> +1 (555) 123-4567</p>
+          <p><strong>Address:</strong> 123 Luxury Lane, Tech City, 90210</p>
+          <div class="social-icons">
+            <a href="#">📘</a>
+            <a href="#">🐦</a>
+            <a href="#">📸</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 LUXE. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+        });
+      }
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+          if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+          }
+        });
+      });
+
+      // Pricing toggle functionality
+      const monthlyBtn = document.querySelector('.pricing-toggle button:first-child');
+      const yearlyBtn = document.querySelector('.pricing-toggle button:last-child');
+      const pricingCards = document.querySelectorAll('.pricing-card');
+
+      if (monthlyBtn && yearlyBtn && pricingCards.length > 0) {
+        monthlyBtn.addEventListener('click', () => {
+          monthlyBtn.classList.add('active');
+          yearlyBtn.classList.remove('active');
+          pricingCards.forEach(card => {
+            const priceValue = card.querySelector('.price-value');
+            if (card.querySelector('h3').textContent.includes('Basic')) {
+              priceValue.innerHTML = '$9.99<span>/month</span>';
+            } else if (card.querySelector('h3').textContent.includes('Pro')) {
+              priceValue.innerHTML = '$19.99<span>/month</span>';
+            } else if (card.querySelector('h3').textContent.includes('Elite')) {
+              priceValue.innerHTML = '$49.99<span>/month</span>';
+            }
+          });
+        });
+
+        yearlyBtn.addEventListener('click', () => {
+          yearlyBtn.classList.add('active');
+          monthlyBtn.classList.remove('active');
+          pricingCards.forEach(card => {
+            const priceValue = card.querySelector('.price-value');
+            if (card.querySelector('h3').textContent.includes('Basic')) {
+              priceValue.innerHTML = '$99.99<span>/year</span>';
+            } else if (card.querySelector('h3').textContent.includes('Pro')) {
+              priceValue.innerHTML = '$199.99<span>/year</span>';
+            } else if (card.querySelector('h3').textContent.includes('Elite')) {
+              priceValue.innerHTML = '$499.99<span>/year</span>';
+            }
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
