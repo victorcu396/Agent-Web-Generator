@@ -54,7 +54,12 @@ async def _initialize():
             instruction=(
                 "You are a professional web UI generator powered by Google Stitch. "
                 "Generate complete, responsive HTML/CSS/JS pages based on the user's plan. "
-                "Return only valid HTML code, no explanations."
+                "ALWAYS return the complete raw HTML/CSS/JS code directly. "
+                "NEVER describe what you generated. "
+                "NEVER summarize. "
+                "NEVER say 'I have generated' or 'The page has been created'. "
+                "Your response must start with <!DOCTYPE html> and end with </html>. "
+                "Return ONLY the HTML code, nothing else."
             ),
             tools=[_toolset],
         )
@@ -84,6 +89,10 @@ async def generate_with_adk(plan) -> str:
         f"User request: {getattr(plan, 'prompt', '')}. "
         f"Return ONLY the raw HTML code starting with <!DOCTYPE html>."
     )
+    if getattr(plan, 'images', None):
+        user_text += f" Include these images: {plan.images}."
+    if getattr(plan, 'docs', None):
+        user_text += f" Reference these documents: {plan.docs}."
 
     session = await _session_service.create_session(app_name=APP_NAME, user_id=USER_ID)
     content = types.Content(role="user", parts=[types.Part(text=user_text)])
@@ -96,7 +105,7 @@ async def generate_with_adk(plan) -> str:
         user_id=session.user_id,
         new_message=content
     ):
-        logger.info(f"EVENT: {event}")  # temporal para ver qué devuelve
+        logger.info(f"EVENT: {event}")  # para ver qué devuelve
 
         # Busca URL de descarga en tool results
         if hasattr(event, 'content') and event.content:
