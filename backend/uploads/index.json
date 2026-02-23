@@ -52,5 +52,14 @@
     "created_at": "2026-02-20T11:02:22.047311+00:00",
     "html_file": "2026-02-20_ecommerce_7b2065_3.html",
     "json_file": "2026-02-20_ecommerce_7b2065_3.json"
+  },
+  {
+    "page_id": "2026-02-23_ecommerce_7b2065",
+    "site_type": "ecommerce",
+    "prompt": "quiero una landing roja",
+    "session_id": "7b2065f7-053e-4260-893f-79f7ee70cacb",
+    "created_at": "2026-02-23T07:43:26.026100+00:00",
+    "html_file": "2026-02-23_ecommerce_7b2065.html",
+    "json_file": "2026-02-23_ecommerce_7b2065.json"
   }
 ]

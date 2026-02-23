@@ -1,6 +1,9 @@
 import os
 import asyncio
 import logging
+import base64
+import httpx
+from pathlib import Path
 from dotenv import load_dotenv
 from google.genai import types
 from google.adk.agents import Agent
@@ -44,7 +47,6 @@ async def _initialize():
                     "Accept": "application/json",
                     "X-Goog-Api-Key": STITCH_API_KEY
                 },
-                # project_id=os.getenv("GOOGLE_CLOUD_PROJECT"),
             ),
         )
 
@@ -79,23 +81,48 @@ async def _initialize():
         logger.info("Stitch ADK client inicializado correctamente")
 
 
-import httpx
-
 async def generate_with_adk(plan) -> str:
     await _initialize()
 
+    # Construir partes del mensaje
+    parts = []
+
+    # Añadir imágenes como base64
+    if getattr(plan, 'images', None):
+        for image_path in plan.images:
+            try:
+                with open(image_path, 'rb') as f:
+                    image_data = base64.b64encode(f.read()).decode('utf-8')
+                ext = Path(image_path).suffix.lower().replace('.', '')
+                mime = f"image/{'jpeg' if ext == 'jpg' else ext}"
+                parts.append(types.Part(
+                    inline_data=types.Blob(
+                        mime_type=mime,
+                        data=image_data
+                    )
+                ))
+                logger.info(f"Imagen añadida: {image_path}")
+            except Exception as e:
+                logger.warning(f"No se pudo cargar imagen {image_path}: {e}")
+
+    # Construir texto del prompt
     user_text = (
         f"Generate a complete {plan.site_type} HTML page with sections: {plan.sections} and style: {plan.style}. "
         f"User request: {getattr(plan, 'prompt', '')}. "
-        f"Return ONLY the raw HTML code starting with <!DOCTYPE html>."
     )
     if getattr(plan, 'images', None):
-        user_text += f" Include these images: {plan.images}."
+        user_text += "Use the provided images in the design. "
     if getattr(plan, 'docs', None):
-        user_text += f" Reference these documents: {plan.docs}."
+        user_text += f"Reference these documents: {plan.docs}. "
+    user_text += "Return ONLY the raw HTML code starting with <!DOCTYPE html>."
 
+    parts.append(types.Part(text=user_text))
+
+    logger.info(f"Generando página tipo '{plan.site_type}' con {len(parts)-1} imágenes...")
+
+    # Sesión fresca por cada generación
     session = await _session_service.create_session(app_name=APP_NAME, user_id=USER_ID)
-    content = types.Content(role="user", parts=[types.Part(text=user_text)])
+    content = types.Content(role="user", parts=parts)
 
     html_parts = []
     download_url = None
@@ -105,7 +132,7 @@ async def generate_with_adk(plan) -> str:
         user_id=session.user_id,
         new_message=content
     ):
-        logger.info(f"EVENT: {event}")  # para ver qué devuelve
+        logger.info(f"EVENT: {event}")
 
         # Busca URL de descarga en tool results
         if hasattr(event, 'content') and event.content:

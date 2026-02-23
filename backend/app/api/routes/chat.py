@@ -17,7 +17,7 @@ agent = WebBuilderAgent()
 
 class ChatMessage(BaseModel):
     message: str
-    session_id: str  # El frontend genera y envía este ID
+    session_id: str
 
 
 @router.get("/chat", response_class=HTMLResponse)
@@ -142,9 +142,10 @@ async def chat_page():
                 display: flex;
                 gap: 10px;
                 background: white;
+                align-items: center;
             }
 
-            input {
+            input[type="text"] {
                 flex: 1;
                 padding: 12px 16px;
                 border: 2px solid #e0e0e0;
@@ -154,7 +155,7 @@ async def chat_page():
                 transition: border-color 0.2s;
             }
 
-            input:focus { border-color: #667eea; }
+            input[type="text"]:focus { border-color: #667eea; }
 
             button {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -174,6 +175,25 @@ async def chat_page():
             }
 
             button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+            #fileBtn {
+                padding: 12px;
+                border-radius: 50%;
+                width: 45px;
+                height: 45px;
+                background: #e0e0e0;
+                color: #333;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+            }
+
+            #fileBtn:hover {
+                background: #d0d0d0;
+                box-shadow: none;
+                transform: none;
+            }
 
             .typing-indicator { display: flex; gap: 5px; padding: 12px 16px; }
             .typing-indicator span {
@@ -208,24 +228,30 @@ async def chat_page():
                         ¡Hola! Soy tu asistente de diseño web. Dime qué página quieres crear:<br/><br/>
                         • <b>Tienda online</b> → "quiero una tienda de ropa"<br/>
                         • <b>Portfolio</b> → "crea mi portfolio de diseñador"<br/>
-                        • <b>Landing page</b> → "landing para mi startup de IA"
+                        • <b>Landing page</b> → "landing para mi startup de IA"<br/><br/>
+                        Puedes adjuntar imágenes o documentos con el botón 📎
                     </div>
                 </div>
             </div>
 
             <div class="input-area">
-                <input 
-                    type="text" 
-                    id="messageInput" 
+                <input
+                    type="text"
+                    id="messageInput"
                     placeholder="Describe tu página web..."
                     autocomplete="off"
                 />
+                <input type="file" id="fileInput" multiple accept="image/*,.pdf,.doc,.docx"
+                    style="display:none" onchange="updateFileLabel()"/>
+                <button onclick="document.getElementById('fileInput').click()"
+                    id="fileBtn">
+                    📎
+                </button>
                 <button id="sendBtn" onclick="sendMessage()">Generar</button>
             </div>
         </div>
 
         <script>
-            // Genera o recupera session_id persistente en localStorage
             function getSessionId() {
                 let sid = localStorage.getItem('session_id');
                 if (!sid) {
@@ -247,8 +273,23 @@ async def chat_page():
                 }
             });
 
+            function updateFileLabel() {
+                const files = document.getElementById('fileInput').files;
+                const fileBtn = document.getElementById('fileBtn');
+                if (files.length > 0) {
+                    fileBtn.textContent = `📎 ${files.length}`;
+                    fileBtn.style.background = '#667eea';
+                    fileBtn.style.color = 'white';
+                } else {
+                    fileBtn.textContent = '📎';
+                    fileBtn.style.background = '#e0e0e0';
+                    fileBtn.style.color = '#333';
+                }
+            }
+
             async function sendMessage() {
                 const message = messageInput.value.trim();
+                const files = document.getElementById('fileInput').files;
                 if (!message) return;
 
                 addUserMessage(message);
@@ -262,24 +303,46 @@ async def chat_page():
                 scrollToBottom();
 
                 try {
-                    const response = await fetch('/api/chat/message', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ message, session_id: SESSION_ID })
-                    });
+                    let response;
+
+                    if (files.length > 0) {
+                        const formData = new FormData();
+                        formData.append('prompt', message);
+                        for (const file of files) {
+                            if (file.type.startsWith('image/')) {
+                                formData.append('images', file);
+                            } else {
+                                formData.append('docs', file);
+                            }
+                        }
+                        response = await fetch('/generate/upload', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        document.getElementById('fileInput').value = '';
+                        updateFileLabel();
+                    } else {
+                        response = await fetch('/api/chat/message', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ message, session_id: SESSION_ID })
+                        });
+                    }
 
                     loadingDiv.remove();
-
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
                     const data = await response.json();
-
-                    // Mostrar la página generada
-                    addAgentMessage(data.response, data.html_file, data.json_file, data.page_id);
+                    addAgentMessage(
+                        data.html || data.response,
+                        data.html_file,
+                        data.json_file,
+                        data.page_id
+                    );
 
                 } catch (error) {
                     loadingDiv.remove();
-                    addTextMessage(`Error: ${error.message}. Por favor intenta de nuevo.`);
+                    addTextMessage(`Error: ${error.message}`);
                 } finally {
                     sendBtn.disabled = false;
                     messageInput.focus();
@@ -307,7 +370,6 @@ async def chat_page():
                     content += `<div class="message-content">${escapeHtml(html)}</div>`;
                 }
 
-                // Mostrar badges con los archivos guardados si existen
                 if (htmlFile || jsonFile) {
                     content += `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">`;
                     if (htmlFile) {
@@ -356,27 +418,20 @@ async def chat_message(request: ChatMessage, db: Session = Depends(get_db)):
         return {"response": "Por favor envía un mensaje."}
 
     try:
-        # Obtener o crear usuario por session_id
         user = repository.get_or_create_user(db, request.session_id)
-
-        # Guardar mensaje del usuario
         repository.save_message(db, user.id, "user", user_message)
         logger.info(f"Mensaje recibido de sesión {request.session_id}: {user_message[:50]}")
 
-        # Generar página
         prompt_dto = PromptDTO(prompt=user_message)
         result = await agent.run(prompt_dto)
 
-        # Determinar site_type desde el plan
         plan = agent.analyze_prompt(user_message)
         site_type = plan.site_type
 
-        # Guardar en BD
         repository.save_generated_page(db, user.id, user_message, site_type, result.html)
         repository.save_message(db, user.id, "agent", result.html)
         logger.info(f"Página generada ({site_type}) para sesión {request.session_id}")
 
-        # Guardar en disco (.html + .json + index.json)
         file_meta = save_page(
             html=result.html,
             prompt=user_message,

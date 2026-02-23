@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Red Ecommerce</title>
+    <style>
+        :root {
+            --primary-red: #E74C3C;
+            --dark-red: #C0392B;
+            --light-red: #FADBD8;
+            --text-color: #333;
+            --white: #ffffff;
+            --light-gray: #f8f8f8;
+            --border-color: #ddd;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--light-red);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1500x600/E74C3C/ffffff?text=Amazing+Red+Collection') no-repeat center center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(231, 76, 60, 0.6); /* Red overlay */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            background-color: var(--dark-red);
+            color: var(--white);
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #A93226;
+            transform: translateY(-2px);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 60px 0;
+            text-align: center;
+            background-color: var(--light-gray);
+        }
+
+        .products h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: var(--primary-red);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 1.4em;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--dark-red);
+        }
+
+        .product-info p.price {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+
+        .product-info .btn {
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            background-color: var(--primary-red);
+        }
+
+        .product-info .btn:hover {
+            background-color: var(--dark-red);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 60px 0;
+            text-align: center;
+            background-color: var(--white);
+        }
+
+        .pricing h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: var(--primary-red);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            border: 2px solid var(--primary-red);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--white);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .pricing-card h3 {
+            font-size: 2em;
+            color: var(--dark-red);
+            margin-bottom: 20px;
+        }
+
+        .pricing-card .price-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+        }
+
+        .pricing-card .price-value span {
+            font-size: 0.5em;
+            font-weight: normal;
+            color: var(--text-color);
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .pricing-card ul li {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .pricing-card .btn {
+            background-color: var(--primary-red);
+        }
+
+        .pricing-card .btn:hover {
+            background-color: var(--dark-red);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 60px 0;
+            background-color: var(--light-red);
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: var(--dark-red);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form .btn {
+            width: 100%;
+            background-color: var(--dark-red);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            padding: 15px;
+        }
+
+        .contact-form .btn:hover {
+            background-color: #A93226;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-red);
+            color: var(--white);
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .product-grid, .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Red Elegance Store</h1>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h2>Experience the Boldness of Red</h2>
+            <p>Discover our exclusive collection where passion meets style. Elevate your everyday with our vibrant red essentials.</p>
+            <a href="#products" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <section id="products" class="products container">
+        <h2>Featured Products</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/400x250/E74C3C/ffffff?text=Red+Dress" alt="Red Dress">
+                <div class="product-info">
+                    <h3>Elegant Red Dress</h3>
+                    <p class="price">$79.99</p>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/400x250/E74C3C/ffffff?text=Red+Shoes" alt="Red Shoes">
+                <div class="product-info">
+                    <h3>Stylish Red Heels</h3>
+                    <p class="price">$59.99</p>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/400x250/E74C3C/ffffff?text=Red+Bag" alt="Red Handbag">
+                <div class="product-info">
+                    <h3>Chic Red Handbag</h3>
+                    <p class="price">$49.99</p>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/400x250/E74C3C/ffffff?text=Red+Watch" alt="Red Watch">
+                <div class="product-info">
+                    <h3>Modern Red Watch</h3>
+                    <p class="price">$99.99</p>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing container">
+        <h2>Our Exclusive Memberships</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Basic Tier</h3>
+                <p class="price-value">$9<span>/month</span></p>
+                <ul>
+                    <li>Access to basic collection</li>
+                    <li>Email support</li>
+                    <li>Monthly newsletter</li>
+                </ul>
+                <a href="#" class="btn">Choose Plan</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Premium Tier</h3>
+                <p class="price-value">$19<span>/month</span></p>
+                <ul>
+                    <li>Access to all collections</li>
+                    <li>Priority customer support</li>
+                    <li>Exclusive discounts</li>
+                    <li>Early access to new arrivals</li>
+                </ul>
+                <a href="#" class="btn">Choose Plan</a>
+            </div>
+            <div class="pricing-card">
+                <h3>VIP Tier</h3>
+                <p class="price-value">$29<span>/month</span></p>
+                <ul>
+                    <li>All Premium benefits</li>
+                    <li>Personal shopper</li>
+                    <li>Free express shipping</li>
+                    <li>Birthday gift</li>
+                    <li>Private styling sessions</li>
+                </ul>
+                <a href="#" class="btn">Choose Plan</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Red Elegance Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -199,7 +199,6 @@ http://localhost:8000/docs
 
 
 
-
 # 📡 Endpoints FastAPI
 
 Base URL:
