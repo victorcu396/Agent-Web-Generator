@@ -61,5 +61,14 @@
     "created_at": "2026-02-23T07:43:26.026100+00:00",
     "html_file": "2026-02-23_ecommerce_7b2065.html",
     "json_file": "2026-02-23_ecommerce_7b2065.json"
+  },
+  {
+    "page_id": "2026-02-26_generic_7b2065",
+    "site_type": "generic",
+    "prompt": "quiero una pagina de perro rosa",
+    "session_id": "7b2065f7-053e-4260-893f-79f7ee70cacb",
+    "created_at": "2026-02-26T09:59:32.087174+00:00",
+    "html_file": "2026-02-26_generic_7b2065.html",
+    "json_file": "2026-02-26_generic_7b2065.json"
   }
 ]

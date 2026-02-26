@@ -1,6 +1,6 @@
 """
 file_storage.py
-Sistema de guardado de páginas generadas en disco (uploads/).
+Sistema de guardado de páginas generadas en disco (generations/).
 Guarda cada página como .html y .json, y mantiene un índice global index.json.
 
 Identificador único: {fecha}_{tipo-sitio}_{session_corta}
@@ -15,13 +15,13 @@ from datetime import datetime, timezone
 logger = logging.getLogger(__name__)
 
 # Carpeta base donde se guardan los archivos
-# Sube dos niveles desde app/services/ hasta la raíz, luego /uploads
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'uploads'))
+# Sube dos niveles desde app/services/ hasta la raíz, luego /generations
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'generations'))
 INDEX_FILE = os.path.join(BASE_DIR, 'index.json')
 
 
 def _ensure_dirs():
-    """Crea la carpeta uploads/ si no existe."""
+    """Crea la carpeta generations/ si no existe."""
     os.makedirs(BASE_DIR, exist_ok=True)
 
 
@@ -83,7 +83,7 @@ def save_page(
     session_id: str,
 ) -> dict:
     """
-    Guarda la página generada como .html y .json en uploads/.
+    Guarda la página generada como .html y .json en generations/.
     Actualiza el índice global index.json.
 
     Devuelve un dict con los metadatos del archivo guardado.

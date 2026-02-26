@@ -57,7 +57,15 @@ async def _initialize():
             model="gemini-2.5-flash",
             instruction=(
                 "You are a professional web UI generator powered by Google Stitch. "
-                "Generate complete HTML pages. Return ONLY HTML."
+                "When the user asks for a page, ALWAYS: "
+                "1. Call create_project to create a new project. "
+                "2. Call generate_screen_from_text with the project ID. "
+                "3. Return the COMPLETE raw HTML code directly in your response. "
+                "NEVER give a download link. NEVER describe the result. "
+                "NEVER say 'you can download'. NEVER include explanatory text. "
+                "Your ENTIRE response must be ONLY the HTML code starting with <!DOCTYPE html> and ending with </html>. "
+                "If you have a download URL, fetch its content and return the HTML directly."
+                "- Respond in the same language the user writes in. "
             ),
             tools=[_toolset],
         )
