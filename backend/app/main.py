@@ -16,7 +16,11 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="AI Web Builder")
+upload_dir = os.path.join(os.path.dirname(__file__), "uploads") 
+if not os.path.exists(upload_dir):
+    os.makedirs(upload_dir)
 
+app.mount("/uploads", StaticFiles(directory=upload_dir), name="uploads")
 # Middlewares — siempre DESPUÉS de crear app
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=["*"])
 
