@@ -373,10 +373,10 @@ async def chat_page():
                 if (htmlFile || jsonFile) {
                     content += `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">`;
                     if (htmlFile) {
-                        content += `<span class="file-badge">📄 <a href="/uploads/${htmlFile}" target="_blank">${htmlFile}</a></span>`;
+                        content += `<span class="file-badge">📄 <a href="/generations/${htmlFile}" target="_blank">${htmlFile}</a></span>`;
                     }
                     if (jsonFile) {
-                        content += `<span class="file-badge">🗂️ <a href="/uploads/${jsonFile}" target="_blank">${jsonFile}</a></span>`;
+                        content += `<span class="file-badge">🗂️ <a href="/generations/${jsonFile}" target="_blank">${jsonFile}</a></span>`;
                     }
                     content += `</div>`;
                 }
